@@ -1,20 +1,36 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.3"
+
+    compileSdkVersion androidCompileSdkVersion
+    buildToolsVersion androidBuildToolsVersion
 
     defaultConfig {
         applicationId "com.emami.moviedb"
-        minSdkVersion 21
-        targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion androidMinSdkVersion
+        targetSdkVersion androidTargetSdkVersion
+        versionCode appVersionCode
+        versionName appVersionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        //!!!!!The key is not added to a .properties file for the sake of simplicity!!!!!!
+        buildConfigField("String", "API_KEY", "\"cbf685b69c1ecfe61f8a010f0b4a8c9e\"")
+        //can config in buildTypes to hit different url for stage and production
+        buildConfigField "String", "BASE_URL", "\"https://api.openweathermap.org/\""
+
     }
+
+
+//Loads secret keys, will throw exception if the file is not provided in local.
+
+    def keyPropertiesFile = rootProject.file("keys.properties")
+    def keyProperties = new Properties()
+    keyProperties.load(new FileInputStream(keyPropertiesFile))
+
 
     buildTypes {
         release {
@@ -22,16 +38,56 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        coreLibraryDesugaringEnabled true
+
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
 }
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.3.0'
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation libraries.kotlinStdLib
+    implementation libraries.ktxCore
+    implementation libraries.appCompat
+    implementation libraries.constraintLayout
+    implementation libraries.legacySupport
+    implementation libraries.materialDesign
 
+    implementation libraries.retrofit
+    implementation libraries.gsonConverterFactory
+    implementation libraries.dagger
+    implementation libraries.timber
+    implementation libraries.coroutineCore
+    implementation libraries.coroutineAndroid
+    implementation libraries.coroutineCallAdapter
+    implementation libraries.loggingInterceptor
+    implementation libraries.gson
+
+    //Jetpack
+    implementation archComponentLibraries.navFragment
+    implementation archComponentLibraries.lifecycleViewModel
+    implementation archComponentLibraries.lifecyclerLiveData
+    implementation archComponentLibraries.lifecycleRuntime
+    implementation archComponentLibraries.room
+    implementation archComponentLibraries.roomKtx
+
+    kapt archComponentLibraries.roomCompiler
+
+
+    coreLibraryDesugaring libraries.jdkDesugar
+
+    //Kapt
+    kapt libraries.daggerCompiler
+
+
+    //Test
+    testImplementation testLibraries.junit4
+    testImplementation testLibraries.mockito
+    androidTestImplementation testLibraries.androidXextJunit
+    androidTestImplementation testLibraries.espresso_core
 }
