@@ -17,20 +17,18 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        //!!!!!The key is not added to a .properties file for the sake of simplicity!!!!!!
-        buildConfigField("String", "API_KEY", "\"cbf685b69c1ecfe61f8a010f0b4a8c9e\"")
+        /*
+            This key should be put in key.properties file
+            or
+            Get secured using other various methods
+            ****but I just added it here for the sake of simplicity.****
+         */
+        buildConfigField("String", "API_KEY", "\"c9aff436fd2e605566aad7141e0fdf89\"")
+
         //can config in buildTypes to hit different url for stage and production
-        buildConfigField "String", "BASE_URL", "\"https://api.openweathermap.org/\""
+        buildConfigField "String", "BASE_URL", "\"https://api.themoviedb.org/3/\""
 
     }
-
-
-//Loads secret keys, will throw exception if the file is not provided in local.
-
-    def keyPropertiesFile = rootProject.file("keys.properties")
-    def keyProperties = new Properties()
-    keyProperties.load(new FileInputStream(keyPropertiesFile))
-
 
     buildTypes {
         release {
@@ -39,8 +37,6 @@ android {
         }
     }
     compileOptions {
-        coreLibraryDesugaringEnabled true
-
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
@@ -75,14 +71,12 @@ dependencies {
     implementation archComponentLibraries.lifecycleRuntime
     implementation archComponentLibraries.room
     implementation archComponentLibraries.roomKtx
-
-    kapt archComponentLibraries.roomCompiler
-
-
-    coreLibraryDesugaring libraries.jdkDesugar
+    implementation archComponentLibraries.paging
 
     //Kapt
     kapt libraries.daggerCompiler
+    kapt archComponentLibraries.roomCompiler
+
 
 
     //Test

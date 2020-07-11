@@ -34,13 +34,13 @@ ext {
 
     //Architecture Component Libraries  ###################################################################################################################
 
-    pagingVersion = "2.1.2"
+    pagingVersion = "3.0.0-alpha01"
     prefVersion = "1.1.0"
     lifecyleExtensionVersion = '2.2.0'
     room_version = "2.2.5"
 
     archComponentLibraries = [
-            archPaging        : "androidx.paging:paging-runtime-ktx:$pagingVersion",
+            paging        : "androidx.paging:paging-runtime:$pagingVersion",
             preference        : "androidx.preference:preference-ktx:$prefVersion",
             //Set of extensions used that reduce some boilerplate codes when working with viewmodel, livedata lifecycle and etc.
             lifecycleViewModel: "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecyleExtensionVersion",
