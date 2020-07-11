@@ -5,7 +5,7 @@ import android.os.Bundle
 import com.emami.moviedb.R
 import com.emami.moviedb.app.MovieDbApp
 import com.emami.moviedb.app.di.factory.MovieDbFragmentFactory
-import com.emami.moviedb.forecast.ui.movie.MovieListFragment
+import com.emami.moviedb.movie.ui.discover.MovieListFragment
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
