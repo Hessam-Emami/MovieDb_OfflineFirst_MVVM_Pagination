@@ -5,7 +5,7 @@ package com.emami.moviedb.common.util
  */
 sealed class DataResult<out T : Any> {
     data class Success<out T : Any>(val data: T) : DataResult<T>()
-    data class Error(val errorMsg: String, val e: Exception? = null) : DataResult<Nothing>()
+    data class Error(val e: Exception) : DataResult<Nothing>()
 }
 
 

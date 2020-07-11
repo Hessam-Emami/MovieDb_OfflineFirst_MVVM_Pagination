@@ -1,11 +1,9 @@
-package com.emami.moviedb.forecast.data.network
+package com.emami.moviedb.movie.data.network
 
-import com.emami.moviedb.forecast.data.network.dto.MovieResponse
+import com.emami.moviedb.movie.data.network.dto.MovieResponseDTO
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
-import java.text.SimpleDateFormat
-import java.util.*
 
 interface MovieApi {
 
@@ -18,6 +16,6 @@ interface MovieApi {
         @Query("with_original_language") originalLang: String = "en",
         @Query("include_adult") includeAdult: Boolean = false,
         @Query("include_video") include_video: Boolean = true
-    ): Response<MovieResponse>
+    ): Response<MovieResponseDTO>
 }
 

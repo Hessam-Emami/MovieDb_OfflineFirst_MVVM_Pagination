@@ -5,6 +5,7 @@ import com.emami.moviedb.common.util.NoConnectivityException
 import retrofit2.Response
 import timber.log.Timber
 import java.io.IOException
+import java.lang.RuntimeException
 import java.net.SocketTimeoutException
 
 @Suppress("UNCHECKED_CAST")
@@ -20,25 +21,23 @@ open class BaseDataSource() {
                 DataResult.Success(result.body() ?: Any() as T)
             } else {
                 Timber.i("Api call error ${result.raw()}")
-                DataResult.Error(result.errorBody()?.toString() ?: result.message())
+                DataResult.Error(
+                    RuntimeException(
+                        result.errorBody()?.toString() ?: result.message()
+                    )
+                )
             }
         } catch (e: SocketTimeoutException) {
-            return DataResult.Error(ERROR_TIMEOUT, e)
+            return DataResult.Error(e)
         } catch (e: NoConnectivityException) {
-            return DataResult.Error(ERROR_INTERNET, e)
+            return DataResult.Error(e)
         } catch (e: IOException) {
-            return DataResult.Error(ERROR_IO, e)
+            return DataResult.Error(e)
         } catch (t: Throwable) {
+            //Serious problem, log this into firebase
             Timber.e("Api Call throwable: $t")
             throw t
         }
     }
 
-    //Should get from string.xml and injected into BaseDataSource, but
-    //I've added them here for now for the sake of simplicity
-    private companion object {
-        const val ERROR_TIMEOUT = "This takes longer than usual, please try again in a bit"
-        const val ERROR_INTERNET = "Please check your internet and try again"
-        const val ERROR_IO = "There is a problem in getting response from the server"
-    }
 }
