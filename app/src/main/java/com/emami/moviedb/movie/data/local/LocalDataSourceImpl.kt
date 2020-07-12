@@ -1,6 +1,7 @@
 package com.emami.moviedb.movie.data.local
 
 import androidx.paging.PagingSource
+import com.emami.moviedb.common.db.MovieDatabase
 import com.emami.moviedb.movie.data.local.dao.MovieDao
 import com.emami.moviedb.movie.data.local.dao.RemoteKeysDao
 import com.emami.moviedb.movie.data.local.entity.MovieEntity
@@ -9,7 +10,8 @@ import javax.inject.Inject
 
 class LocalDataSourceImpl @Inject constructor(
     private val movieDao: MovieDao,
-    private val remoteKeysDao: RemoteKeysDao
+    private val remoteKeysDao: RemoteKeysDao,
+    private val database: MovieDatabase
 ) : LocalDataSource {
     override suspend fun insertAllKeys(list: List<RemoteKeysEntity>) {
         remoteKeysDao.insertAll(list)
@@ -32,7 +34,6 @@ class LocalDataSourceImpl @Inject constructor(
     }
 
     override suspend fun clearAllTables() {
-        remoteKeysDao.clearRemoteKeys()
-        movieDao.clearMovies()
+        database.clearAllTables()
     }
 }

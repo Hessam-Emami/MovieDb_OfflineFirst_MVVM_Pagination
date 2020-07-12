@@ -26,10 +26,6 @@ class MovieRemoteMediator(
 ) : RemoteMediator<Int, MovieEntity>() {
 
 
-    /**
-     * Finds next page for the api call
-     * Han
-     */
     override suspend fun load(
         loadType: LoadType,
         state: PagingState<Int, MovieEntity>

@@ -12,7 +12,7 @@ class RemoteDataSourceImpl @Inject constructor(private val movieApi: MovieApi) :
     override suspend fun fetch(sort: MovieFilter.SORT, page: Int): DataResult<MovieResponseDTO> {
         return invokeApi {
             movieApi.discover(
-                sortBy = sort.param, page = page, latestDate = DateTimeUtil.getFormattedDate()
+                sortBy = sort.param, page = page, latestDate = DateTimeUtil.formatDateToString()
             )
         }
     }

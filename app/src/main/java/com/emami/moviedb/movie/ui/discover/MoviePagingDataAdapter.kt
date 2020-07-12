@@ -4,6 +4,7 @@ import android.view.View
 import androidx.recyclerview.widget.DiffUtil
 import com.emami.moviedb.R
 import com.emami.moviedb.common.base.BasePagingDataAdapter
+import com.emami.moviedb.common.util.DateTimeUtil
 import com.emami.moviedb.common.util.loadImage
 import com.emami.moviedb.movie.data.local.entity.MovieEntity
 import kotlinx.android.synthetic.main.movie_item_recycler.view.*
@@ -25,7 +26,7 @@ class MoviePagingDataAdapter @Inject constructor() :
         return { item, itemView, _ ->
             itemView.apply {
                 title.text = item.title
-                date.text = item.releaseDate
+                date.text = DateTimeUtil.getYearMonthFromDateString(item.releaseDate)
                 imageView.loadImage(item.posterLink)
                 setOnClickListener {
                     onMovieClickedCallback?.invoke(item.id)

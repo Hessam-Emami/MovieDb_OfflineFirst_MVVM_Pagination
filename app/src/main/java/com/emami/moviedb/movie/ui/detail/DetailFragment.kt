@@ -1,24 +1,15 @@
 package com.emami.moviedb.movie.ui.detail
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.DialogFragmentNavigatorDestinationBuilder
+import androidx.lifecycle.ViewModelProvider
 import com.emami.moviedb.R
 import com.emami.moviedb.common.base.BaseFragment
+import com.emami.moviedb.common.util.DateTimeUtil
 import com.emami.moviedb.common.util.loadImage
 import com.emami.moviedb.movie.data.local.entity.MovieEntity
-import com.emami.moviedb.movie.ui.discover.MovieViewModel
 import kotlinx.android.synthetic.main.detail_fragment.*
 import javax.inject.Inject
-
-interface DetailView {
-    fun renderMovieDetail(movieEntity: MovieEntity)
-}
 
 class DetailFragment @Inject constructor(vf: ViewModelProvider.Factory) :
     BaseFragment<DetailViewModel>(DetailViewModel::class.java, vf), DetailView {
@@ -34,7 +25,7 @@ class DetailFragment @Inject constructor(vf: ViewModelProvider.Factory) :
     override fun renderMovieDetail(movieEntity: MovieEntity) {
         with(movieEntity) {
             detail_iv_poster.loadImage(posterLink)
-            detail_tv_date.text = releaseDate
+            detail_tv_date.text = DateTimeUtil.getYearMonthFromDateString(releaseDate)
             detail_tv_title.text = title
             detail_tv_overview.text = overview
             detail_tv_popularity.text = popularity.toString()

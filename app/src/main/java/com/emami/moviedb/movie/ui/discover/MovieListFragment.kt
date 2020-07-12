@@ -19,18 +19,13 @@ import com.emami.moviedb.common.util.makeVisible
 import com.emami.moviedb.movie.data.local.entity.MovieEntity
 import com.emami.moviedb.movie.util.ExceptionLocalizer
 import com.emami.moviedb.movie.util.MovieFilter
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.movie_fragment.*
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import java.lang.Exception
 import javax.inject.Inject
-
-interface MovieView {
-    fun initRecyclerView()
-    fun renderMovieList(list: PagingData<MovieEntity>)
-    fun renderMovieLoadState(state: CombinedLoadStates)
-    fun onMovieItemClicked(movieId: Long)
-}
 
 class MovieListFragment @Inject constructor(
     private val moviePagingDataAdapter: MoviePagingDataAdapter,
@@ -66,17 +61,6 @@ class MovieListFragment @Inject constructor(
         return super.onOptionsItemSelected(item)
     }
 
-    override fun setupListeners() {
-        super.setupListeners()
-        movie_btn_retry.setOnClickListener {
-            if (moviePagingDataAdapter.itemCount > 0) {
-                moviePagingDataAdapter.retry()
-            } else {
-                requestMovieData(initialSortState)
-            }
-        }
-    }
-
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.menu_movie_sort, menu)
@@ -101,45 +85,21 @@ class MovieListFragment @Inject constructor(
     }
 
     override fun renderMovieLoadState(state: CombinedLoadStates) {
-        Timber.d("Load States: $state")
-        when (val refreshState = state.refresh) {
-            is LoadState.NotLoading -> {
-                movie_pb_loading.makeGone()
-                movie_btn_retry.makeGone()
-            }
-            is LoadState.Error -> {
-                movie_pb_loading.makeGone()
-                movie_btn_retry.makeVisible()
-                showMessage(
-                    exceptionLocalizer.getExceptionMessage(
-                        refreshState.error as Exception,
-                        requireContext()
-                    )
+        Timber.d("Load states Mediator: ${state.mediator}")
+        if (state.refresh is LoadState.Error) {
+            movie_pb_loading.makeGone()
+            showSnackbar(
+                exceptionLocalizer.getExceptionMessage(
+                    (state.refresh as LoadState.Error).error as Exception,
+                    requireContext()
                 )
+            ) {
+                moviePagingDataAdapter.retry()
             }
-            is LoadState.Loading -> {
-                movie_pb_loading.makeVisible()
-                movie_btn_retry.makeGone()
-            }
-        }
-        when (val appendState = state.append) {
-            is LoadState.Error -> {
-                movie_pb_loading.makeGone()
-                movie_btn_retry.makeVisible()
-                showMessage(
-                    exceptionLocalizer.getExceptionMessage(
-                        appendState.error as Exception,
-                        requireContext()
-                    )
-                )
-            }
-            is LoadState.Loading -> {
-                movie_pb_loading.makeVisible()
-                movie_btn_retry.makeGone()
-            }
-            is LoadState.NotLoading -> {
-
-            }
+        } else if (state.refresh is LoadState.Loading || state.append is LoadState.Loading) {
+            movie_pb_loading.makeVisible()
+        } else {
+            movie_pb_loading.makeGone()
         }
     }
 
@@ -159,5 +119,19 @@ class MovieListFragment @Inject constructor(
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        snack?.dismiss()
+    }
+
+    var snack: Snackbar? = null
+    private fun showSnackbar(message: String, action: () -> Unit) {
+        snack?.dismiss()
+        snack =
+            Snackbar.make(requireView(), message, Snackbar.LENGTH_INDEFINITE).setAction("retry") {
+                action.invoke()
+            }
+        snack?.show()
+    }
 }
 
