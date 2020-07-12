@@ -68,7 +68,6 @@ dependencies {
     implementation libraries.loggingInterceptor
     implementation libraries.gson
 
-
     coreLibraryDesugaring libraries.jdkDesugar
 
     //Jetpack
@@ -91,6 +90,15 @@ dependencies {
     //Test
     testImplementation testLibraries.junit4
     testImplementation testLibraries.mockito
+    testImplementation testLibraries.archCoreTesting
+    testImplementation testLibraries.coroutineTest
+    testImplementation testLibraries.roboElectric
+    testImplementation testLibraries.junit4
+    testImplementation testLibraries.androidXextJunit
+    testImplementation testLibraries.androidXCoreKtx
+    testImplementation testLibraries.androidXextJunit
+    
     androidTestImplementation testLibraries.androidXextJunit
     androidTestImplementation testLibraries.espresso_core
+
 }

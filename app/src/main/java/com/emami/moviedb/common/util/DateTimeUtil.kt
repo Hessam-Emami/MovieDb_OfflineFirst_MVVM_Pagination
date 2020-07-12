@@ -12,7 +12,6 @@ object DateTimeUtil {
     @SuppressLint("SimpleDateFormat")
     private val yearMonthFormatter = SimpleDateFormat("MMMM yyyy")
 
-    @SuppressLint("SimpleDateFormat")
     fun formatDateToString(date: Date = Date()): String =
         yearMonthDayFormatter.format(date)
 
