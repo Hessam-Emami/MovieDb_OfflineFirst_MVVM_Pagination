@@ -5,7 +5,6 @@ import com.emami.moviedb.common.util.NoConnectivityException
 import retrofit2.Response
 import timber.log.Timber
 import java.io.IOException
-import java.lang.RuntimeException
 import java.net.SocketTimeoutException
 
 @Suppress("UNCHECKED_CAST")

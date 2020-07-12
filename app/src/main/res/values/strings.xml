@@ -5,4 +5,6 @@
     <string name="error_io">Can not establish a connection to remote server, please try again.</string>
     <string name="error_unknown">Unknown error</string>
     <string name="error_retry">retry</string>
+    <string name="popularity">Popularity:</string>
+    <string name="votecount">VoteCount:</string>
 </resources>

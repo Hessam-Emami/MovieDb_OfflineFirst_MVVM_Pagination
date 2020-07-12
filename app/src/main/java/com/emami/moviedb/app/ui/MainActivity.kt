@@ -1,12 +1,10 @@
 package com.emami.moviedb.app.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.emami.moviedb.R
 import com.emami.moviedb.app.MovieDbApp
 import com.emami.moviedb.app.di.factory.MovieDbFragmentFactory
-import com.emami.moviedb.movie.ui.discover.MovieListFragment
-import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
 

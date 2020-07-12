@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="detail_title_margin_top">16dp</dimen>
+    <dimen name="detail_title_margin_side">8dp</dimen>
+    <dimen name="detail_release_date_margin_top">8dp</dimen>
+    <dimen name="detail_poster_size">300dp</dimen>
+    <dimen name="detail_poster_margin_top">16dp</dimen>
+    <dimen name="detail_overview_margin_side">16dp</dimen>
+    <dimen name="detail_overview_margin_top">24dp</dimen>
+    <dimen name="detail_popularity_margin_top">16dp</dimen>
+    <dimen name="movie_item_outer_padding">16dp</dimen>
+    <dimen name="movie_item_title_padding_end">24dp</dimen>
+    <dimen name="movie_item_title_padding_start">4dp</dimen>
+    <dimen name="movie_item_date_margin_start">20dp</dimen>
+    <dimen name="movie_item_poster_width">140dp</dimen>
+    <dimen name="movie_item_poster_height">200dp</dimen>
+    <dimen name="movie_item_poster_margin_start">16dp</dimen>
+</resources>

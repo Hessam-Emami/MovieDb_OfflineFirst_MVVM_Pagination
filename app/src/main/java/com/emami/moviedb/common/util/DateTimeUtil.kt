@@ -2,14 +2,13 @@ package com.emami.moviedb.common.util
 
 import android.annotation.SuppressLint
 import java.text.SimpleDateFormat
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 object DateTimeUtil {
 
     @SuppressLint("SimpleDateFormat")
     private val yearMonthDayFormatter = SimpleDateFormat("yyyy-MM-dd")
+
     @SuppressLint("SimpleDateFormat")
     private val yearMonthFormatter = SimpleDateFormat("MMMM yyyy")
 

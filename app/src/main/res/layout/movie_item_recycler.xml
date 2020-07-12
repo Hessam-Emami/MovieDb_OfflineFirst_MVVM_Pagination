@@ -5,15 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/transparent"
-    android:paddingTop="32dp"
-    android:paddingBottom="32dp">
+    android:paddingTop="@dimen/movie_item_outer_padding"
+    android:paddingBottom="@dimen/movie_item_outer_padding">
 
     <TextView
         android:id="@+id/title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="4dp"
+        android:layout_marginTop="@dimen/movie_item_title_padding_end"
+        android:layout_marginEnd="@dimen/movie_item_title_padding_start"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/date"
@@ -24,7 +24,7 @@
         android:id="@+id/date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="@dimen/movie_item_date_margin_start"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintStart_toEndOf="@+id/imageView"
@@ -33,9 +33,9 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imageView"
-        android:layout_width="140dp"
-        android:layout_height="200dp"
-        android:layout_marginStart="16dp"
+        android:layout_width="@dimen/movie_item_poster_width"
+        android:layout_height="@dimen/movie_item_poster_height"
+        android:layout_marginStart="@dimen/movie_item_poster_margin_start"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

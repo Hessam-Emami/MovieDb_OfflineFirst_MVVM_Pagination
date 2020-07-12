@@ -18,6 +18,7 @@ object MovieNonAbstractModule {
     )
 
     @Provides
-    fun providePageConfig(): PagingConfig = PagingConfig(Constants.DEFAULT_PAGE_SIZE, enablePlaceholders = false)
+    fun providePageConfig(): PagingConfig =
+        PagingConfig(Constants.DEFAULT_PAGE_SIZE, enablePlaceholders = false)
 
 }
