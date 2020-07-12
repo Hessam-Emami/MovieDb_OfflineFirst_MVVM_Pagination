@@ -27,6 +27,10 @@ class LocalDataSourceImpl @Inject constructor(
         return remoteKeysDao.getRemoteKeyById(id)
     }
 
+    override suspend fun findMovieById(id: Long): MovieEntity? {
+        return movieDao.getMovieById(id)
+    }
+
     override suspend fun clearAllTables() {
         remoteKeysDao.clearRemoteKeys()
         movieDao.clearMovies()

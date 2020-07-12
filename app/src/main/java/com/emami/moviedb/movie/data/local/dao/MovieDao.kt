@@ -20,4 +20,7 @@ interface MovieDao {
 
     @Query("DELETE FROM movie")
     suspend fun clearMovies()
+
+    @Query("SELECT * FROM movie WHERE id LIKE :id")
+    suspend fun getMovieById(id: Long): MovieEntity?
 }

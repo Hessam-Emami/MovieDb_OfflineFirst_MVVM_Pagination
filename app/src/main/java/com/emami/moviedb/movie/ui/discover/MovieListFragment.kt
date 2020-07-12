@@ -8,6 +8,7 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import androidx.paging.PagingData
@@ -28,6 +29,7 @@ interface MovieView {
     fun initRecyclerView()
     fun renderMovieList(list: PagingData<MovieEntity>)
     fun renderMovieLoadState(state: CombinedLoadStates)
+    fun onMovieItemClicked(movieId: Long)
 }
 
 class MovieListFragment @Inject constructor(
@@ -108,7 +110,12 @@ class MovieListFragment @Inject constructor(
             is LoadState.Error -> {
                 movie_pb_loading.makeGone()
                 movie_btn_retry.makeVisible()
-                showMessage(exceptionLocalizer.getExceptionMessage(refreshState.error as Exception,requireContext()))
+                showMessage(
+                    exceptionLocalizer.getExceptionMessage(
+                        refreshState.error as Exception,
+                        requireContext()
+                    )
+                )
             }
             is LoadState.Loading -> {
                 movie_pb_loading.makeVisible()
@@ -119,7 +126,12 @@ class MovieListFragment @Inject constructor(
             is LoadState.Error -> {
                 movie_pb_loading.makeGone()
                 movie_btn_retry.makeVisible()
-                showMessage(exceptionLocalizer.getExceptionMessage(appendState.error as Exception, requireContext()))
+                showMessage(
+                    exceptionLocalizer.getExceptionMessage(
+                        appendState.error as Exception,
+                        requireContext()
+                    )
+                )
             }
             is LoadState.Loading -> {
                 movie_pb_loading.makeVisible()
@@ -131,9 +143,20 @@ class MovieListFragment @Inject constructor(
         }
     }
 
+    override fun onMovieItemClicked(movieId: Long) {
+        findNavController().navigate(
+            MovieListFragmentDirections.actionMovieListFragmentToDetailFragment(
+                movieId
+            )
+        )
+    }
+
+
     override fun initRecyclerView() {
-        movie_recycler_view_discover.adapter = moviePagingDataAdapter
-        moviePagingDataAdapter.addLoadStateListener(this::renderMovieLoadState)
+        movie_recycler_view_discover.adapter = moviePagingDataAdapter.apply {
+            addLoadStateListener(this@MovieListFragment::renderMovieLoadState)
+            onMovieClickedCallback = this@MovieListFragment::onMovieItemClicked
+        }
     }
 
 }

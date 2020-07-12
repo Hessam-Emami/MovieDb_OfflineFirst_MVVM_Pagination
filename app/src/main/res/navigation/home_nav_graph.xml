@@ -18,5 +18,9 @@
         android:id="@+id/detailFragment"
         android:name="com.emami.moviedb.movie.ui.detail.DetailFragment"
         android:label="detail_fragment"
-        tools:layout="@layout/detail_fragment" />
+        tools:layout="@layout/detail_fragment" >
+        <argument
+            android:name="movieId"
+            app:argType="long" />
+    </fragment>
 </navigation>

@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/movie_cl_container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".movie.ui.discover.MovieListFragment">
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -16,14 +17,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:itemCount="24"
-        tools:listitem="@layout/item_recycler_movie" />
+        tools:listitem="@layout/movie_item_recycler" />
 
     <ProgressBar
         android:id="@+id/movie_pb_loading"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_width="match_parent"
-        android:indeterminate="true"
         android:layout_height="wrap_content"
+        android:indeterminate="true"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

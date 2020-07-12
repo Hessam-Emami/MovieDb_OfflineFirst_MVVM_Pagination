@@ -15,6 +15,8 @@ class MoviePagingDataAdapter @Inject constructor() :
         DiffCallback
     ) {
 
+    var onMovieClickedCallback: ((movieId: Long) -> Unit)? = null
+
     override fun getLayoutId(): Int {
         return R.layout.movie_item_recycler
     }
@@ -25,6 +27,9 @@ class MoviePagingDataAdapter @Inject constructor() :
                 title.text = item.title
                 date.text = item.releaseDate
                 imageView.loadImage(item.posterLink)
+                setOnClickListener {
+                    onMovieClickedCallback?.invoke(item.id)
+                }
             }
         }
 

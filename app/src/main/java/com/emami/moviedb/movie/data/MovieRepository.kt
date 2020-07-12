@@ -11,6 +11,10 @@ import com.emami.moviedb.movie.data.local.entity.MovieEntity
 import com.emami.moviedb.movie.data.local.LocalDataSource
 import com.emami.moviedb.movie.data.network.RemoteDataSource
 import com.emami.moviedb.movie.util.MovieFilter
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import java.lang.RuntimeException
+import java.util.*
 import javax.inject.Inject
 
 /*
@@ -35,6 +39,11 @@ class MovieRepository @Inject constructor(
             pagingSourceFactory = localPagingSourceFactory,
             remoteMediator = remoteMediator
         ).liveData
+    }
+
+    suspend fun getMovieById(id: Long): MovieEntity = withContext(Dispatchers.IO) {
+        localDataSource.findMovieById(id)
+            ?: throw RuntimeException("Movie with Id does not exist in page!")
     }
 }
 
