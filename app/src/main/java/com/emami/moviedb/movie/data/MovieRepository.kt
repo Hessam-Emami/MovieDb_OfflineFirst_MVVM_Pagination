@@ -1,20 +1,17 @@
 package com.emami.moviedb.movie.data
 
-import androidx.lifecycle.LiveData
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import androidx.paging.liveData
 import com.emami.moviedb.app.di.scope.ActivityScope
-import com.emami.moviedb.movie.data.network.RemoteDataSourceImpl
-import com.emami.moviedb.movie.data.local.entity.MovieEntity
+import com.emami.moviedb.common.db.MovieDatabase
 import com.emami.moviedb.movie.data.local.LocalDataSource
+import com.emami.moviedb.movie.data.local.entity.MovieEntity
 import com.emami.moviedb.movie.data.network.RemoteDataSource
 import com.emami.moviedb.movie.util.MovieFilter
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
-import java.lang.RuntimeException
-import java.util.*
 import javax.inject.Inject
 
 /*
@@ -25,20 +22,26 @@ import javax.inject.Inject
 class MovieRepository @Inject constructor(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource,
+    /*
+    We have to pass database in due to multi-transaction issues.
+    https://medium.com/androiddevelopers/threading-models-in-coroutines-and-android-sqlite-api-6cab11f7eb90
+     */
+    private val database: MovieDatabase,
     private val pageConfig: PagingConfig
 ) {
 
     //Builds corresponding pagination sources
     fun fetchMovies(
         sortBy: MovieFilter.SORT
-    ): LiveData<PagingData<MovieEntity>> {
+    ): Flow<PagingData<MovieEntity>> {
         val localPagingSourceFactory = { localDataSource.getAllMovies() }
-        val remoteMediator = MovieRemoteMediator(sortBy, remoteDataSource, localDataSource)
+        val remoteMediator =
+            MovieRemoteMediator(sortBy, remoteDataSource, localDataSource, database)
         return Pager(
             pageConfig,
             pagingSourceFactory = localPagingSourceFactory,
             remoteMediator = remoteMediator
-        ).liveData
+        ).flow
     }
 
     suspend fun getMovieById(id: Long): MovieEntity = withContext(Dispatchers.IO) {

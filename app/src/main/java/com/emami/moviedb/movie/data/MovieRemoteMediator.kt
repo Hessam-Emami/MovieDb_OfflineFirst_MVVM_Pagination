@@ -4,25 +4,26 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
+import androidx.room.withTransaction
 import com.emami.moviedb.common.Constants
+import com.emami.moviedb.common.db.MovieDatabase
 import com.emami.moviedb.common.util.DataResult
 import com.emami.moviedb.movie.data.local.LocalDataSource
 import com.emami.moviedb.movie.data.local.entity.MovieEntity
 import com.emami.moviedb.movie.data.local.entity.RemoteKeysEntity
 import com.emami.moviedb.movie.data.local.mapper.toMovieEntity
 import com.emami.moviedb.movie.data.network.RemoteDataSource
-import com.emami.moviedb.movie.data.network.RemoteDataSourceImpl
 import com.emami.moviedb.movie.data.network.dto.MovieDTO
 import com.emami.moviedb.movie.util.MovieFilter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.lang.RuntimeException
 
 @OptIn(ExperimentalPagingApi::class)
 class MovieRemoteMediator(
     private val sortBy: MovieFilter.SORT,
     private val remoteDataSource: RemoteDataSource,
-    private val localDataSource: LocalDataSource
+    private val localDataSource: LocalDataSource,
+    private val database: MovieDatabase
 ) : RemoteMediator<Int, MovieEntity>() {
 
 
@@ -41,12 +42,13 @@ class MovieRemoteMediator(
             is DataResult.Success -> {
                 val moviesFromNetwork = apiResult.data.results
                 val endOfPaginationReached = moviesFromNetwork.isEmpty()
-                withContext(Dispatchers.IO) {
+                database.withTransaction {
                     //Invalidate local cache if we are resubmitting paging
                     if (loadType == LoadType.REFRESH) {
                         localDataSource.clearAllTables()
                     }
                     insertNewPageData(moviesFromNetwork, endOfPaginationReached, page)
+
                 }
                 return MediatorResult.Success(
                     endOfPaginationReached = endOfPaginationReached
@@ -73,8 +75,8 @@ class MovieRemoteMediator(
                 nextKey = nextKey
             )
         }
-        localDataSource.insertAllKeys(keys)
         localDataSource.insertAllMovies(moviesFromNetwork.map { it.toMovieEntity() })
+        localDataSource.insertAllKeys(keys)
     }
 
     private suspend fun getRemoteKeyFromLastItem(state: PagingState<Int, MovieEntity>): RemoteKeysEntity? =
