@@ -34,7 +34,7 @@ open class BaseDataSource() {
         } catch (e: IOException) {
             return DataResult.Error(e)
         } catch (t: Throwable) {
-            //Serious problem, log this into firebase
+            //If this happens we have serious problem,Send log
             Timber.e("Api Call throwable: $t")
             throw t
         }

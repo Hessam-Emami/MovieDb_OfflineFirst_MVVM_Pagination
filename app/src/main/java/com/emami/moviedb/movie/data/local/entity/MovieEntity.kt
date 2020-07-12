@@ -9,6 +9,7 @@ data class MovieEntity @JvmOverloads constructor(
     @PrimaryKey val id: Long,
     val popularity: Double,
     val voteCount: Int,
+    val posterLink: String?,
     val originalLanguage: String,
     val originalTitle: String,
     val title: String,

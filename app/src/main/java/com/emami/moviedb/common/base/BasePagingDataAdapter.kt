@@ -24,16 +24,16 @@ abstract class BasePagingDataAdapter<T: Any>(
 
 
     override fun onBindViewHolder(holder: MyViewHolder<T>, position: Int) {
-        holder.bind(getItem(position), position)
+        getItem(position)?.let { holder.bind(it, position) }
 
     }
 
     class MyViewHolder<T>(
         view: View,
-        private val bindFunction: (item: T?, itemView: View, position: Int) -> Unit
+        private val bindFunction: (item: T, itemView: View, position: Int) -> Unit
     ) :
         RecyclerView.ViewHolder(view) {
-        fun bind(item: T?, position: Int) {
+        fun bind(item: T, position: Int) {
             bindFunction.invoke(item, itemView, position)
         }
 
@@ -44,7 +44,7 @@ abstract class BasePagingDataAdapter<T: Any>(
     abstract fun getLayoutId(): Int
 
 
-    abstract fun bindView(): (item: T?, itemView: View, position: Int) -> Unit
+    abstract fun bindView(): (item: T, itemView: View, position: Int) -> Unit
 
 
 }

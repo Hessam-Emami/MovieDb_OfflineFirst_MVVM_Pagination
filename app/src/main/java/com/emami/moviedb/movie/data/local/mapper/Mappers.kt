@@ -14,6 +14,7 @@ fun MovieDTO.toMovieEntity(): MovieEntity {
         title = title,
         voteAverage = voteAverage,
         overview = overview,
-        releaseDate = releaseDate
+        releaseDate = releaseDate,
+        posterLink = posterLink
     )
 }
