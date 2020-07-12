@@ -53,6 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/detail_overview_margin_side"
             android:layout_marginTop="@dimen/detail_overview_margin_top"
+            android:layout_marginBottom="@dimen/detail_overview_margin_top"
             android:layout_marginEnd="@dimen/detail_overview_margin_side"
             android:gravity="center"
             android:justificationMode="inter_word"
