@@ -9,6 +9,7 @@ import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.snackbar.Snackbar
 
 abstract class BaseFragment<T : BaseViewModel>(
     private val viewModelClass: Class<out T>,
@@ -53,6 +54,22 @@ abstract class BaseFragment<T : BaseViewModel>(
         super.onViewCreated(view, savedInstanceState)
         observeLiveData()
         setupListeners()
+    }
+
+    private var snack: Snackbar? = null
+    override fun showSnack(message: String, actionTitle: String, action: () -> Unit) {
+        snack?.dismiss()
+        snack =
+            Snackbar.make(requireView(), message, Snackbar.LENGTH_INDEFINITE)
+                .setAction(actionTitle) {
+                    action.invoke()
+                }
+        snack?.show()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        snack?.dismiss()
     }
 
     override fun onCreateView(

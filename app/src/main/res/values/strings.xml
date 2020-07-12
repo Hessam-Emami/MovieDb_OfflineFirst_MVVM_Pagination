@@ -4,4 +4,5 @@
     <string name="error_timeout">Request took so long, please check your VPN connection</string>
     <string name="error_io">Can not establish a connection to remote server, please try again.</string>
     <string name="error_unknown">Unknown error</string>
+    <string name="error_retry">retry</string>
 </resources>

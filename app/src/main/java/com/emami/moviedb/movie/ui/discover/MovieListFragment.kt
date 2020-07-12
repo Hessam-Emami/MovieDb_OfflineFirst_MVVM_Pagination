@@ -5,7 +5,6 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -19,12 +18,11 @@ import com.emami.moviedb.common.util.makeVisible
 import com.emami.moviedb.movie.data.local.entity.MovieEntity
 import com.emami.moviedb.movie.util.ExceptionLocalizer
 import com.emami.moviedb.movie.util.MovieFilter
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.movie_fragment.*
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import java.lang.Exception
 import javax.inject.Inject
 
 class MovieListFragment @Inject constructor(
@@ -72,10 +70,21 @@ class MovieListFragment @Inject constructor(
         job?.cancel()
         job = lifecycleScope.launch {
             viewModel.getMoviesBySort(sortBy)
-                .observe(viewLifecycleOwner, Observer {
+                .collect {
                     renderMovieList(it)
                 }
-                )
+        }
+    }
+
+    private fun processErrorState(state: LoadState) {
+        showSnack(
+            exceptionLocalizer.getExceptionMessage(
+                (state as LoadState.Error).error as Exception,
+                requireContext()
+            )
+            , getString(R.string.error_retry)
+        ) {
+            moviePagingDataAdapter.retry()
         }
     }
 
@@ -84,18 +93,18 @@ class MovieListFragment @Inject constructor(
         moviePagingDataAdapter.submitData(this.lifecycle, list)
     }
 
+    /**
+     * If it's loading, show progress bar otherwise hide it and show retry button on error
+     */
     override fun renderMovieLoadState(state: CombinedLoadStates) {
         Timber.d("Load states Mediator: ${state.mediator}")
         if (state.refresh is LoadState.Error) {
             movie_pb_loading.makeGone()
-            showSnackbar(
-                exceptionLocalizer.getExceptionMessage(
-                    (state.refresh as LoadState.Error).error as Exception,
-                    requireContext()
-                )
-            ) {
-                moviePagingDataAdapter.retry()
-            }
+            processErrorState(state.refresh)
+        }
+        if (state.append is LoadState.Error) {
+            movie_pb_loading.makeGone()
+            processErrorState(state.append)
         } else if (state.refresh is LoadState.Loading || state.append is LoadState.Loading) {
             movie_pb_loading.makeVisible()
         } else {
@@ -111,27 +120,11 @@ class MovieListFragment @Inject constructor(
         )
     }
 
-
     override fun initRecyclerView() {
         movie_recycler_view_discover.adapter = moviePagingDataAdapter.apply {
             addLoadStateListener(this@MovieListFragment::renderMovieLoadState)
             onMovieClickedCallback = this@MovieListFragment::onMovieItemClicked
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        snack?.dismiss()
-    }
-
-    var snack: Snackbar? = null
-    private fun showSnackbar(message: String, action: () -> Unit) {
-        snack?.dismiss()
-        snack =
-            Snackbar.make(requireView(), message, Snackbar.LENGTH_INDEFINITE).setAction("retry") {
-                action.invoke()
-            }
-        snack?.show()
     }
 }
 
