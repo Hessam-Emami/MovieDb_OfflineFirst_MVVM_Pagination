@@ -5,6 +5,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -99,15 +100,21 @@ class MovieListFragment @Inject constructor(
     override fun renderMovieLoadState(state: CombinedLoadStates) {
         Timber.d("Load states Mediator: ${state.mediator}")
         if (state.refresh is LoadState.Error) {
-            movie_pb_loading.makeGone()
+            hideProgressBar()
             processErrorState(state.refresh)
         }
         if (state.append is LoadState.Error) {
-            movie_pb_loading.makeGone()
+            hideProgressBar()
             processErrorState(state.append)
         } else if (state.refresh is LoadState.Loading || state.append is LoadState.Loading) {
             movie_pb_loading.makeVisible()
         } else {
+            hideProgressBar()
+        }
+    }
+
+    private fun hideProgressBar() {
+        if (movie_pb_loading.isVisible) {
             movie_pb_loading.makeGone()
         }
     }
