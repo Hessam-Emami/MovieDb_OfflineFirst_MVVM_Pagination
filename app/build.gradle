@@ -55,6 +55,7 @@ dependencies {
     implementation libraries.constraintLayout
     implementation libraries.legacySupport
     implementation libraries.materialDesign
+    implementation libraries.glide
 
     implementation libraries.retrofit
     implementation libraries.gsonConverterFactory
@@ -65,6 +66,7 @@ dependencies {
     implementation libraries.coroutineCallAdapter
     implementation libraries.loggingInterceptor
     implementation libraries.gson
+
 
     coreLibraryDesugaring libraries.jdkDesugar
 
@@ -80,6 +82,7 @@ dependencies {
     //Kapt
     kapt libraries.daggerCompiler
     kapt archComponentLibraries.roomCompiler
+    kapt libraries.glideCompiler
 
 
 

@@ -40,7 +40,7 @@ ext {
     room_version = "2.3.0-alpha01"
 
     archComponentLibraries = [
-            paging        : "androidx.paging:paging-runtime:$pagingVersion",
+            paging            : "androidx.paging:paging-runtime:$pagingVersion",
             preference        : "androidx.preference:preference-ktx:$prefVersion",
             //Set of extensions used that reduce some boilerplate codes when working with viewmodel, livedata lifecycle and etc.
             lifecycleViewModel: "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecyleExtensionVersion",
@@ -74,7 +74,10 @@ ext {
     glideVersion = "4.10.0"
     gmsVersion = '17.0.0'
     desugarVersion = '1.0.9'
+    glideVersion = "4.11.0"
     libraries = [
+            glide               : "com.github.bumptech.glide:glide:$glideVersion",
+            glideCompiler       : "com.github.bumptech.glide:compiler:$glideVersion",
             jdkDesugar          : "com.android.tools:desugar_jdk_libs:$desugarVersion",
             materialDesign      : "com.google.android.material:material:$materialVersion",
             appCompat           : "androidx.appcompat:appcompat:$appCompatVersion",
