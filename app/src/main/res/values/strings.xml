@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">MovieDb</string>
+    <string name="error_no_internet">Please check your connection and try again</string>
+    <string name="error_timeout">Request took too long, please try again in a moment</string>
+    <string name="error_io">Can not establish a connection to remote server, please try again.</string>
+    <string name="error_unknown">Unknown error</string>
 </resources>
