@@ -19,8 +19,8 @@ class DetailFragment @Inject constructor(vf: ViewModelProvider.Factory) :
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_detail, container, false)
+        return inflater.inflate(R.layout.detail_fragment, container, false)
     }
 
-    override fun getLayoutId(): Int = R.layout.fragment_detail
+    override fun getLayoutId(): Int = R.layout.detail_fragment
 }

@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
 
-class MainActivity : AppCompatActivity(), MainNavigator {
+class MainActivity : AppCompatActivity() {
 
     @Inject
     lateinit var fragmentFactory: MovieDbFragmentFactory
@@ -22,18 +22,6 @@ class MainActivity : AppCompatActivity(), MainNavigator {
         supportFragmentManager.fragmentFactory = fragmentFactory
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        if (savedInstanceState == null) {
-            navigateToMovieListScreen()
-        }
-    }
-
-    override fun navigateToMovieListScreen() {
-        supportFragmentManager.beginTransaction()
-            .replace(
-                frameContainer.id,
-                MovieListFragment::class.java, null
-            )
-            .commit()
     }
 }
 

@@ -2,12 +2,11 @@ package com.emami.moviedb.movie.ui.discover
 
 import android.view.View
 import androidx.recyclerview.widget.DiffUtil
-import com.bumptech.glide.Glide
 import com.emami.moviedb.R
 import com.emami.moviedb.common.base.BasePagingDataAdapter
 import com.emami.moviedb.common.util.loadImage
 import com.emami.moviedb.movie.data.local.entity.MovieEntity
-import kotlinx.android.synthetic.main.item_recycler_movie.view.*
+import kotlinx.android.synthetic.main.movie_item_recycler.view.*
 import javax.inject.Inject
 
 
@@ -17,7 +16,7 @@ class MoviePagingDataAdapter @Inject constructor() :
     ) {
 
     override fun getLayoutId(): Int {
-        return R.layout.item_recycler_movie
+        return R.layout.movie_item_recycler
     }
 
     override fun bindView(): (item: MovieEntity, itemView: View, position: Int) -> Unit {

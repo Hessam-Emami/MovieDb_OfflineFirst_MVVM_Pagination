@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'androidx.navigation.safeargs.kotlin'
 
 android {
 
@@ -72,6 +73,7 @@ dependencies {
 
     //Jetpack
     implementation archComponentLibraries.navFragment
+    implementation archComponentLibraries.navUi
     implementation archComponentLibraries.lifecycleViewModel
     implementation archComponentLibraries.lifecyclerLiveData
     implementation archComponentLibraries.lifecycleRuntime
