@@ -22,7 +22,7 @@ class MovieViewModel @Inject constructor(
     fun getMoviesBySort(
         sortBy: MovieFilter.SORT
     ): LiveData<PagingData<MovieEntity>> {
-        if (latestSort == sortBy && data != null) {
+        if (checkIfRequestIsRepeated(sortBy)) {
             return data!!
         }
         val result =
@@ -32,5 +32,7 @@ class MovieViewModel @Inject constructor(
         return result
     }
 
+    private fun checkIfRequestIsRepeated(sortBy: MovieFilter.SORT) =
+        latestSort == sortBy && data != null
 }
 

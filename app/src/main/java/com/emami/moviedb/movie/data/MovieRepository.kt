@@ -9,6 +9,7 @@ import com.emami.moviedb.app.di.scope.ActivityScope
 import com.emami.moviedb.movie.data.network.RemoteDataSourceImpl
 import com.emami.moviedb.movie.data.local.entity.MovieEntity
 import com.emami.moviedb.movie.data.local.LocalDataSource
+import com.emami.moviedb.movie.data.network.RemoteDataSource
 import com.emami.moviedb.movie.util.MovieFilter
 import javax.inject.Inject
 
@@ -18,7 +19,7 @@ import javax.inject.Inject
  */
 @ActivityScope
 class MovieRepository @Inject constructor(
-    private val remoteDataSource: RemoteDataSourceImpl,
+    private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource,
     private val pageConfig: PagingConfig
 ) {
