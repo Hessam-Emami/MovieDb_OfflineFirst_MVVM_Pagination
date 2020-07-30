@@ -1,6 +1,7 @@
 package com.emami.moviedb.movie.ui.detail
 
 import android.os.Bundle
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.emami.moviedb.R
@@ -12,8 +13,9 @@ import kotlinx.android.synthetic.main.detail_fragment.*
 import javax.inject.Inject
 
 class DetailFragment @Inject constructor(vf: ViewModelProvider.Factory) :
-    BaseFragment<DetailViewModel>(DetailViewModel::class.java, vf), DetailView {
+    BaseFragment(), DetailView {
 
+    private val viewModel by viewModels<DetailViewModel> { vf }
 
     override fun observeLiveData() {
         super.observeLiveData()
