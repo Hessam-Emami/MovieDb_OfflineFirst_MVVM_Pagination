@@ -74,29 +74,35 @@ ext {
     gmsVersion = '17.0.0'
     desugarVersion = '1.0.9'
     glideVersion = "4.11.0"
+    hiltVersion = "1.0.0-alpha01"
+    hiltAndroidVersion = "2.28-alpha"
     libraries = [
-            glide               : "com.github.bumptech.glide:glide:$glideVersion",
-            glideCompiler       : "com.github.bumptech.glide:compiler:$glideVersion",
-            jdkDesugar          : "com.android.tools:desugar_jdk_libs:$desugarVersion",
-            materialDesign      : "com.google.android.material:material:$materialVersion",
-            appCompat           : "androidx.appcompat:appcompat:$appCompatVersion",
-            recyclerView        : "androidx.recyclerview:recyclerview:$appCompatVersion",
-            legacySupport       : "androidx.legacy:legacy-support-v4:$legacySupportVersion",
-            kotlinStdLib        : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion",
-            ktxCore             : "androidx.core:core-ktx:$ktxVersion",
-            constraintLayout    : "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion",
-            retrofit            : "com.squareup.retrofit2:retrofit:$retrofitVersion",
-            gson                : "com.google.code.gson:gson:$gsonVersion",
+            glide                    : "com.github.bumptech.glide:glide:$glideVersion",
+            glideCompiler            : "com.github.bumptech.glide:compiler:$glideVersion",
+            jdkDesugar               : "com.android.tools:desugar_jdk_libs:$desugarVersion",
+            materialDesign           : "com.google.android.material:material:$materialVersion",
+            appCompat                : "androidx.appcompat:appcompat:$appCompatVersion",
+            recyclerView             : "androidx.recyclerview:recyclerview:$appCompatVersion",
+            legacySupport            : "androidx.legacy:legacy-support-v4:$legacySupportVersion",
+            kotlinStdLib             : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion",
+            ktxCore                  : "androidx.core:core-ktx:$ktxVersion",
+            constraintLayout         : "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion",
+            retrofit                 : "com.squareup.retrofit2:retrofit:$retrofitVersion",
+            gson                     : "com.google.code.gson:gson:$gsonVersion",
             //Automated json conversion without the boilerplate needed when using only gson
-            gsonConverterFactory: "com.squareup.retrofit2:converter-gson:$gsonConverterVersion",
-            loggingInterceptor  : "com.squareup.okhttp3:logging-interceptor:$loggingInterceptorVersion",
-            dagger              : "com.google.dagger:dagger:$daggerVersion",
-            daggerCompiler      : "com.google.dagger:dagger-compiler:$daggerVersion",
-            timber              : "com.jakewharton.timber:timber:$timberVersion",
-            coroutineCore       : "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineVersion",
-            coroutineAndroid    : "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutineVersion",
-            coroutineCallAdapter: "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$coroutineAdapterVersion",
-            playServices        : "com.google.android.gms:play-services-location:$gmsVersion"
+            gsonConverterFactory     : "com.squareup.retrofit2:converter-gson:$gsonConverterVersion",
+            loggingInterceptor       : "com.squareup.okhttp3:logging-interceptor:$loggingInterceptorVersion",
+            dagger                   : "com.google.dagger:dagger:$daggerVersion",
+            daggerHilt               : "androidx.hilt:hilt-lifecycle-viewmodel:$hiltVersion",
+            daggerHiltCompiler       : "androidx.hilt:hilt-compiler:$hiltVersion",
+            daggerHiltAndroid        : "com.google.dagger:hilt-android:$hiltAndroidVersion",
+            daggerHiltAndroidCompiler: "com.google.dagger:hilt-android-compiler:$hiltVersion",
+            daggerCompiler           : "com.google.dagger:dagger-compiler:$daggerVersion",
+            timber                   : "com.jakewharton.timber:timber:$timberVersion",
+            coroutineCore            : "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineVersion",
+            coroutineAndroid         : "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutineVersion",
+            coroutineCallAdapter     : "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:$coroutineAdapterVersion",
+            playServices             : "com.google.android.gms:play-services-location:$gmsVersion"
     ]
 
     //Test Libraries  ###################################################################################################################
