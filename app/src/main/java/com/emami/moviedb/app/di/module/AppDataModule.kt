@@ -1,15 +1,13 @@
 package com.emami.moviedb.app.di.module
 
-import androidx.lifecycle.ViewModelProvider
-import com.emami.moviedb.app.di.factory.ViewModelFactory
-import dagger.Binds
 import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
 
 /**
  * Provides persistence related objects such as database, shared pref, etc.
  */
 @Module
+@InstallIn(ApplicationComponent::class)
 abstract class AppDataModule {
-    @Binds
-    abstract fun bindViewModelFactory(viewModelFactory: ViewModelFactory): ViewModelProvider.Factory
 }

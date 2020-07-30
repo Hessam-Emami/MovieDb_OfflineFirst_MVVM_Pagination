@@ -2,7 +2,7 @@ package com.emami.moviedb.app.di.factory
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentFactory
-import com.emami.moviedb.app.di.scope.ActivityScope
+import dagger.hilt.android.scopes.ActivityScoped
 import javax.inject.Inject
 import javax.inject.Provider
 
@@ -11,7 +11,7 @@ import javax.inject.Provider
  * Since we're planning to follow Dependent Component Dependency in future modules,
  * Each module that has an android Activity must initialize this in it's own graph(component)
  */
-@ActivityScope
+@ActivityScoped
 class MovieDbFragmentFactory @Inject constructor(
     private val fragmentProviders: Map<Class<out Fragment>, @JvmSuppressWildcards Provider<Fragment>>
 ) : FragmentFactory() {

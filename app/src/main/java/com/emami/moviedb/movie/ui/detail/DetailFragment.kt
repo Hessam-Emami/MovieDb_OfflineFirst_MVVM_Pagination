@@ -3,7 +3,6 @@ package com.emami.moviedb.movie.ui.detail
 import android.os.Bundle
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.emami.moviedb.R
 import com.emami.moviedb.common.base.BaseFragment
 import com.emami.moviedb.common.util.DateTimeUtil
@@ -12,15 +11,18 @@ import com.emami.moviedb.movie.data.local.entity.MovieEntity
 import kotlinx.android.synthetic.main.detail_fragment.*
 import javax.inject.Inject
 
-class DetailFragment @Inject constructor(vf: ViewModelProvider.Factory) :
+class DetailFragment @Inject constructor() :
     BaseFragment(), DetailView {
 
-    private val viewModel by viewModels<DetailViewModel> { vf }
+    private val viewModel by viewModels<DetailViewModel>()
 
     override fun observeLiveData() {
         super.observeLiveData()
         viewModel.movieLiveData.observe(viewLifecycleOwner, Observer {
             renderMovieDetail(it)
+        })
+        viewModel.getErrorLiveData().observe(viewLifecycleOwner, Observer {
+            it?.let { msg -> showMessage(msg) }
         })
     }
 

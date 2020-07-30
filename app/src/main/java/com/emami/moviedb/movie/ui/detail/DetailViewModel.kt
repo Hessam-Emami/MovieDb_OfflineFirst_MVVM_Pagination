@@ -1,5 +1,6 @@
 package com.emami.moviedb.movie.ui.detail
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -8,9 +9,8 @@ import com.emami.moviedb.movie.data.MovieRepository
 import com.emami.moviedb.movie.data.local.entity.MovieEntity
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-class DetailViewModel @Inject constructor(private val repository: MovieRepository) :
+class DetailViewModel @ViewModelInject constructor(private val repository: MovieRepository) :
     BaseViewModel() {
 
     private val _movieLiveData = MutableLiveData<MovieEntity>()

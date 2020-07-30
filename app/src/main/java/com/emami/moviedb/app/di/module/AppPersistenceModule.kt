@@ -8,15 +8,19 @@ import com.emami.moviedb.movie.data.local.dao.MovieDao
 import com.emami.moviedb.movie.data.local.dao.RemoteKeysDao
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Singleton
 
 @Module
+@InstallIn(ApplicationComponent::class)
 object AppPersistenceModule {
 
 
     @Singleton
     @Provides
-    fun provideDatabase(context: Context): MovieDatabase = Room.databaseBuilder(
+    fun provideDatabase(@ApplicationContext context: Context): MovieDatabase = Room.databaseBuilder(
         context,
         MovieDatabase::class.java,
         Constants.DB_NAME

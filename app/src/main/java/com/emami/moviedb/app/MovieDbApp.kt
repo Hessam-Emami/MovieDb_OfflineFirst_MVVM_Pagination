@@ -1,15 +1,13 @@
 package com.emami.moviedb.app
 
 import android.app.Application
-import com.emami.moviedb.app.di.AppComponent
-import com.emami.moviedb.app.di.DaggerAppComponent
+import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
-class MovieDbApp : Application() {
-    lateinit var appComponent: AppComponent
+@HiltAndroidApp
+open class MovieDbApp : Application() {
 
     override fun onCreate() {
-        appComponent = DaggerAppComponent.builder().application(this).build()
         super.onCreate()
         Timber.plant(Timber.DebugTree())
     }

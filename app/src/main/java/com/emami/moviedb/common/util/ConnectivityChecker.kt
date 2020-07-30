@@ -4,12 +4,13 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
+import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
 /**
  * Checks if there is an active connection or not - uses one way for pre android Q and another for sdk >= androidQ
  */
-class ConnectivityChecker @Inject constructor(context: Context) {
+class ConnectivityChecker @Inject constructor(@ApplicationContext context: Context) {
     private val connectivityManager =
         context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 

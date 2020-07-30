@@ -3,7 +3,6 @@ package com.emami.moviedb.movie.data
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.emami.moviedb.app.di.scope.ActivityScope
 import com.emami.moviedb.common.db.MovieDatabase
 import com.emami.moviedb.movie.data.local.LocalDataSource
 import com.emami.moviedb.movie.data.local.entity.MovieEntity
@@ -18,7 +17,6 @@ import javax.inject.Inject
  No need to put this behind abstraction, We don't intend to create a fake repo and
  we can easily mock this in tests.
  */
-@ActivityScope
 class MovieRepository @Inject constructor(
     private val remoteDataSource: RemoteDataSource,
     private val localDataSource: LocalDataSource,

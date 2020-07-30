@@ -7,7 +7,6 @@ import android.view.MenuItem
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.CombinedLoadStates
@@ -29,11 +28,10 @@ import javax.inject.Inject
 
 class MovieListFragment @Inject constructor(
     private val moviePagingDataAdapter: MoviePagingDataAdapter,
-    private val exceptionLocalizer: ExceptionLocalizer,
-    vf: ViewModelProvider.Factory
+    private val exceptionLocalizer: ExceptionLocalizer
 ) : BaseFragment(), MovieView {
 
-    private val viewModel by viewModels<MovieViewModel> { vf }
+    private val viewModel by viewModels<MovieViewModel>()
 
     private var initialSortState = MovieFilter.SORT.DESCENDING
 

@@ -1,5 +1,6 @@
 package com.emami.moviedb.movie.ui.discover
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
@@ -8,9 +9,8 @@ import com.emami.moviedb.movie.data.MovieRepository
 import com.emami.moviedb.movie.data.local.entity.MovieEntity
 import com.emami.moviedb.movie.util.MovieFilter
 import kotlinx.coroutines.flow.Flow
-import javax.inject.Inject
 
-class MovieViewModel @Inject constructor(
+class MovieViewModel @ViewModelInject constructor(
     private val repo: MovieRepository
 ) :
     BaseViewModel() {
