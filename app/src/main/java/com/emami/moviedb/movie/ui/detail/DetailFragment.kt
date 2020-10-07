@@ -8,9 +8,11 @@ import com.emami.moviedb.common.base.BaseFragment
 import com.emami.moviedb.common.util.DateTimeUtil
 import com.emami.moviedb.common.util.loadImage
 import com.emami.moviedb.movie.data.local.entity.MovieEntity
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.detail_fragment.*
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class DetailFragment @Inject constructor() :
     BaseFragment(), DetailView {
 

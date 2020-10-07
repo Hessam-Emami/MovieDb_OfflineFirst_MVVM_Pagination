@@ -19,6 +19,7 @@ import com.emami.moviedb.common.util.makeVisible
 import com.emami.moviedb.movie.data.local.entity.MovieEntity
 import com.emami.moviedb.movie.util.ExceptionLocalizer
 import com.emami.moviedb.movie.util.MovieFilter
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.movie_fragment.*
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
@@ -26,12 +27,13 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class MovieListFragment @Inject constructor(
     private val moviePagingDataAdapter: MoviePagingDataAdapter,
     private val exceptionLocalizer: ExceptionLocalizer
 ) : BaseFragment(), MovieView {
 
-    private val viewModel by viewModels<MovieViewModel>()
+    private val viewModel: MovieViewModel by viewModels()
 
     private var initialSortState = MovieFilter.SORT.DESCENDING
 

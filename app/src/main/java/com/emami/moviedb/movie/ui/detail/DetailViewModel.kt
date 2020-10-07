@@ -10,7 +10,9 @@ import com.emami.moviedb.movie.data.local.entity.MovieEntity
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class DetailViewModel @ViewModelInject constructor(private val repository: MovieRepository) :
+class DetailViewModel @ViewModelInject constructor(
+    private val repository: MovieRepository
+) :
     BaseViewModel() {
 
     private val _movieLiveData = MutableLiveData<MovieEntity>()
