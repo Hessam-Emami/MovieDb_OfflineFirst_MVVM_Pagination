@@ -25,9 +25,9 @@ android {
             Get secured using other various methods
             ****but I just added it here for the sake of simplicity.****
          */
-        buildConfigField("String", "API_KEY", "\"c9aff436fd2e605566aad7141e0fdf89\"")
+        buildConfigField("String", "API_KEY", "\"PUT_YOUR_OWN_API_KEY_FROM_MOVIEDB_WEBSITE\"")
 
-        //can config in buildTypes to hit different url for stage and production
+        //can later config in buildTypes to hit different urls for stage and production
         buildConfigField "String", "BASE_URL", "\"https://api.themoviedb.org/3/\""
 
     }
