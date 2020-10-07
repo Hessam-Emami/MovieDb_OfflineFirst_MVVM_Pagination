@@ -96,7 +96,7 @@ ext {
             daggerHilt               : "androidx.hilt:hilt-lifecycle-viewmodel:$hiltVersion",
             daggerHiltCompiler       : "androidx.hilt:hilt-compiler:$hiltVersion",
             daggerHiltAndroid        : "com.google.dagger:hilt-android:$hiltAndroidVersion",
-            daggerHiltAndroidCompiler: "com.google.dagger:hilt-android-compiler:$hiltVersion",
+            daggerHiltAndroidCompiler: "com.google.dagger:hilt-android-compiler:$hiltAndroidVersion",
             daggerCompiler           : "com.google.dagger:dagger-compiler:$daggerVersion",
             timber                   : "com.jakewharton.timber:timber:$timberVersion",
             coroutineCore            : "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutineVersion",
